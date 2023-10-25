@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+{% block title %} Posts {% endblock %}
+{% block body %}
+  <div>
+    <a href="{{url_for('categories.create')}}" class="text-success fs-4"><i class="fa-solid fa-square-plus"></i></a>
+  </div>
+  <table class="table my-5" id="dataTable" width="100%" cellspacing="0">
+    <tr class="bg-success text-white"> 
+      <th class="py-3">ID</th>  
+      <th class="py-3">Name</th>
+      <th class="py-3">Show</th>
+      <th class="py-3">Edit</th>
+      <th class="py-3">Delete</th>
+    </tr>
+
+    {% for category in categories %}
+      <tr>
+        <td>{{category.id}}</td>
+        <td>{{category.name}}</td>
+        <td>
+          <a href="{{category.get_show_url}}" class="btn text-success ">
+            <i class="fa-regular fa-eye"></i>
+          </a>
+        </td>
+        <td>
+          <a href="{{url_for('categories.edit', id=category.id)}}" class="btn text-success ">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </a>
+        </td>
+        <td>
+          <a href="{{category.get_delete_url}}" class="btn text-danger">
+            <i class="fa-solid fa-minus"></i>
+          </a>
+        </td>
+            
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

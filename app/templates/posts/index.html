@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %}
+{% block title %} Posts {% endblock %}
+{% block body %}
+  <div class="mb-3 ms-5">
+    <a href="{{url_for('posts.create')}}" class="text-success fs-4"><i class="fa-solid fa-square-plus"></i></a>
+  </div>
+  <div class="row">
+    {% for post in posts %}
+    <div class="col-sm-6 mb-3 mb-sm-0 d-flex justify-content-center ">
+      <div class="card mb-3 border-0 rounded rounded-0 " style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{post.get_image_url}}" class="img-fluid" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body py-0">
+              <p class="card-title fw-semibold ">{{post.title}}</p>
+              <p class="card-text">{{post.body}}</p>
+              <p class="card-text"><small class="text-body-secondary">Last updated {{post.updated_at}}</small></p>
+              <div class="links">
+              <a href="{{post.get_show_url}}" class="btn text-success "><i class="fa-regular fa-eye"></i></a>
+              <a href="{{url_for('posts.edit', id=post.id)}}" class="btn text-success "><i class="fa-regular fa-pen-to-square"></i></a>
+              <a href="{{post.get_delete_url}}" class="btn text-danger "><i class="fa-solid fa-minus"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

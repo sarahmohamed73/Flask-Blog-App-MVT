@@ -3,6 +3,9 @@ from app.models import db
 from app.config import projectConfig as AppConfig
 from flask_migrate import Migrate
 from flask import render_template
+from flask_restful import Api
+from app.posts.api_views import PostList, PostResource
+from app.categories.api_views import CategoryList, CategoryResource
 
 def create_app(config_name = 'dev'):
   app = Flask(__name__)
@@ -14,6 +17,13 @@ def create_app(config_name = 'dev'):
   db.init_app(app)
 
   migrate = Migrate(app, db, render_as_batch=True)
+
+  api = Api(app)
+
+  api.add_resource(PostList, '/api/posts')
+  api.add_resource(PostResource, '/api/posts/<int:post_id>')
+  api.add_resource(CategoryList, '/api/categories')
+  api.add_resource(CategoryResource, '/api/categories/<int:category_id>')
 
   # Contact
   def contact():

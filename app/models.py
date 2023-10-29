@@ -20,6 +20,17 @@ class Category(db.Model):
   def save_category(self):
     db.session.add(self)
     db.session.commit()
+
+  @classmethod
+  def create_category(cls, request_form):
+    category = cls(**request_form)
+    db.session.add(category)
+    db.session.commit()
+    return category
+  
+  @classmethod
+  def get_specific_category(cls, id):
+     return cls.query.get_or_404(id)
   
   @property
   def get_show_url(self):
@@ -46,6 +57,17 @@ class Post(db.Model):
   def save_post(self):
     db.session.add(self)
     db.session.commit()
+
+  @classmethod
+  def create_post(cls, request_form):
+    post = cls(**request_form)
+    db.session.add(post)
+    db.session.commit()
+    return post
+  
+  @classmethod
+  def get_specific_post(cls, id):
+     return cls.query.get_or_404(id)
 
   @property
   def get_image_url(self):
